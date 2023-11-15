@@ -46,7 +46,9 @@ fun main(){
     calcularSueldo(10.00, bonoEspecial = 20.00) // Named Parameters
     calcularSueldo(bonoEspecial = 20.00, sueldo = 10.00, tasa = 14.00) //  Parametros nombrados
 
-
+    val sumaUno = Suma(1, 1)
+    val sumaDos = Suma(null, 1)
+    val sumaTres = Suma(1, null)
 
 }
 
@@ -83,7 +85,30 @@ abstract class Numeros( // Constructor PRIMARIO
 }
 
 
+class Suma( // Constructor Primario Suma
+    unoParametro: Int, // Parametro
+    dosParametro: Int, // Parametro
+): Numeros(unoParametro, dosParametro){ // Extendiendo y mandando los parametros (super)
+    init{ // Bloque codigo constructor primario
+        this.numeroUno
+        this.numeroDos
+    }
 
+    constructor( // Segundo constructor
+        uno: Int?, // Parametros
+        dos: Int // Parametros
+    ):this (
+        if(uno == null) 0 else uno,
+        dos
+    )
+    constructor( // Tercer constructor
+        uno: Int, // Parametros
+        dos: Int? // Parametros
+    ):this(
+        uno,
+        if(dos == null) 0 else dos,
+    )
+}
 
 
 
