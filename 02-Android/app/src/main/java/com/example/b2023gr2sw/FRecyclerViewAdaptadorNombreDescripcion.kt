@@ -17,8 +17,6 @@ class FRecyclerViewAdaptadorNombreDescripcion(
 
 
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         TODO("Not yet implemented")
     }
