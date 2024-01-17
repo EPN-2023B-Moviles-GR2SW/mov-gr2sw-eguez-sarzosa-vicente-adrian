@@ -38,7 +38,7 @@ class GGoogleMapsActivity : AppCompatActivity() {
                     contexto,
                     android.Manifest.permission.ACCESS_FINE_LOCATION
                 )
-            val tienePermisos = permisosFineLocation == 
+            val tienePermisos = permisosFineLocation ==
                     PackageManager.PERMISSION_GRANTED
             if (tienePermisos) {
                 mapa.isMyLocationEnabled = true //  tenemos permisos
