@@ -3,6 +3,7 @@ package com.example.b2023gr2sw
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -58,7 +59,32 @@ class GGoogleMapsActivity : AppCompatActivity() {
                 moverQuicentro()
                 anadirPolilinea()
                 anadirPoligono()
+                escucharListeners()
             }
+        }
+    }
+    fun escucharListeners(){
+        mapa.setOnPolygonClickListener {
+            mostrarSnackbar("setOnPolygonClickListener ${it}")
+            it.tag // ID
+        }
+        mapa.setOnPolylineClickListener {
+            mostrarSnackbar("setOnPolylineClickListener ${it}")
+            it.tag // ID
+        }
+        mapa.setOnMarkerClickListener {
+            mostrarSnackbar("setOnMarkerClickListener ${it}")
+            it.tag // ID
+            return@setOnMarkerClickListener true
+        }
+        mapa.setOnCameraMoveListener {
+            Log.i("mapa", "setOnCameraMoveListener")
+        }
+        mapa.setOnCameraMoveStartedListener {
+            Log.i("mapa", "setOnCameraMoveStartedListener ${it}")
+        }
+        mapa.setOnCameraIdleListener {
+            Log.i("mapa", "setOnCameraIdleListener")
         }
     }
     fun anadirPolilinea(){
