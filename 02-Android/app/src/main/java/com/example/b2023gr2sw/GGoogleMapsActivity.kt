@@ -65,15 +65,15 @@ class GGoogleMapsActivity : AppCompatActivity() {
     }
     fun escucharListeners(){
         mapa.setOnPolygonClickListener {
-            mostrarSnackbar("setOnPolygonClickListener ${it}")
+            mostrarSnackbar("setOnPolygonClickListener ${it.tag}")
             it.tag // ID
         }
         mapa.setOnPolylineClickListener {
-            mostrarSnackbar("setOnPolylineClickListener ${it}")
+            mostrarSnackbar("setOnPolylineClickListener ${it.tag}")
             it.tag // ID
         }
         mapa.setOnMarkerClickListener {
-            mostrarSnackbar("setOnMarkerClickListener ${it}")
+            mostrarSnackbar("setOnMarkerClickListener ${it.tag}")
             it.tag // ID
             return@setOnMarkerClickListener true
         }
