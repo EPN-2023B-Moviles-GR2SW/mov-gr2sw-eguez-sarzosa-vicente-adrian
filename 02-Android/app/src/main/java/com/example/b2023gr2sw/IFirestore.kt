@@ -75,12 +75,11 @@ class IFirestore : AppCompatActivity() {
                             it.data?.get("country") as String?,
                             it.data?.get("capital") as Boolean?,
                             it.data?.get("population") as Long?,
-                            it.data?.get("regions") as ArrayList<String>?,
+                            it.data?.get("regions") as
+                                    ArrayList<String>?,
                         )
                     )
                 adaptador.notifyDataSetChanged()
-
-
             }
             .addOnFailureListener {
                 // salio Mal
