@@ -70,7 +70,40 @@ class IFirestore : AppCompatActivity() {
     } // FIN ONCREATE
     fun consultarCiudades(
         adaptador: ArrayAdapter<ICities>
-    ){    }
+    ){
+        val db = Firebase.firestore
+        val citiesRef = db.collection("cities")
+            .orderBy("population")
+            .limit(1)
+        var tarea: Task<QuerySnapshot>? = null
+        if (query == null) {
+            tarea = citiesRef.get() // 1era vez
+            limpiarArreglo()
+            adaptador.notifyDataSetChanged()
+        } else {
+            // consulta de la consulta anterior empezando en el nuevo documento
+            tarea = query!!.get()
+        }
+        if (tarea != null) {
+            tarea
+                .addOnSuccessListener { documentSnapshots ->
+                    guardarQuery(documentSnapshots, citiesRef)
+                    for (ciudad in documentSnapshots) {
+                        anadirAArregloCiudad(ciudad)
+                    }
+                    adaptador.notifyDataSetChanged()
+                }
+                .addOnFailureListener {
+                    // si hay fallos
+                }
+        }
+        // [4,5,6,1,2,3,7,8,9,10,11]
+        // [1,2,3] (limit = 3)
+        // [4,5,6] (limit = 3) (cursor =3)
+        // [7,8,9] (limit = 3) (cursor =6)
+        // [10,11] (limit = 3) (cursor =9)
+        // [] (limit = 3) (cursor =11)
+    }
 
     fun eliminarRegistro(){
         val db = Firebase.firestore
