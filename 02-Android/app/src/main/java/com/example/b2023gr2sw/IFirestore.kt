@@ -67,7 +67,39 @@ class IFirestore : AppCompatActivity() {
             consultarCiudades(adaptador)
         }
 
+        // Consultar indice compuesto
+        val botonIndiceCompuesto = findViewById<Button>(
+            R.id.btn_fs_ind_comp
+        )
+        botonIndiceCompuesto.setOnClickListener {
+            consultarIndiceCompuesto(adaptador)
+        }
+
     } // FIN ONCREATE
+
+
+
+    fun consultarIndiceCompuesto(
+        adaptador: ArrayAdapter<ICities>
+    ){
+        val db = Firebase.firestore
+        val citiesRefUnico = db.collection("cities")
+        limpiarArreglo()
+        adaptador.notifyDataSetChanged()
+        citiesRefUnico
+            .whereEqualTo("capital", false)
+            .whereLessThanOrEqualTo("population", 4000000)
+            .orderBy("population", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener {
+                for (ciudad in it){
+                    anadirAArregloCiudad(ciudad)
+                }
+                adaptador.notifyDataSetChanged()
+            }
+            .addOnFailureListener {  }
+
+    }
     fun consultarCiudades(
         adaptador: ArrayAdapter<ICities>
     ){
